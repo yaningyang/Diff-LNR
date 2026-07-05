@@ -1,0 +1,51 @@
+# Diff-LNR paper configuration.
+# Relative paths are resolved from the directory containing this file.
+
+data:
+  context_file: data/clinvar_deletions_context_400.txt
+  subset_indices_file: null
+  max_ref_allele_length: 1000
+  skip_uncertain_labels: true
+  skip_likely_labels: false
+  reverse_complement_average: false
+
+model:
+  name_or_path: zhihan1996/DNABERT-2-117M
+  trust_remote_code: true
+  add_n_token: true
+  representation: diff_lnr
+  pooling: pooler
+  classifier_hidden_size: 256
+  classifier_dropout: 0.1
+  unfreeze_encoder_layers: [6, 11]
+
+training:
+  seed: 42
+  epochs: 10
+  learning_rate: 5.0e-5
+  weight_decay: 0.05
+  train_fraction: 0.8
+  validation_fraction: 0.1
+  test_fraction: 0.1
+  batch_size_by_max_deletion:
+    50: 32
+    100: 32
+    200: 16
+    500: 8
+    1000: 4
+  evaluation_batch_size: 8
+  num_workers: 0
+  pin_memory: true
+  early_stopping_patience: 3
+  early_stopping_min_delta: 0.001
+  save_checkpoint: true
+
+runtime:
+  device: auto
+  deterministic: true
+  tokenizer_parallelism: false
+
+output:
+  root: runs
+  run_name: null
+  save_predictions: true

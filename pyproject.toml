@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "diff-lnr"
+version = "1.0.0"
+description = "Sequence-only deletion pathogenicity prediction with length-aligned DNABERT-2 fine-tuning"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24,<3",
+    "PyYAML>=6.0,<7",
+    "scikit-learn>=1.3,<2",
+    "torch>=2.1,<3",
+    "transformers>=4.38,<5",
+    "tqdm>=4.66,<5",
+]
+
+[project.optional-dependencies]
+plots = ["matplotlib>=3.7,<4"]
+interpretability = ["captum>=0.7,<1", "matplotlib>=3.7,<4"]
+dev = ["pytest>=8.0,<10", "ruff>=0.4,<1"]
+
+[project.scripts]
+diff-lnr-train = "diff_lnr.cli.train:main"
+diff-lnr-eval = "diff_lnr.cli.evaluate:main"
+diff-lnr-cv = "diff_lnr.cli.cross_validate:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+exclude = [".testdeps", ".venv", "runs", "data"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

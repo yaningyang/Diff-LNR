@@ -1,0 +1,41 @@
+data:
+  context_file: ../tests/fixtures/sample_context.tsv
+  max_ref_allele_length: 1000
+  skip_uncertain_labels: true
+  skip_likely_labels: false
+
+model:
+  name_or_path: zhihan1996/DNABERT-2-117M
+  add_n_token: true
+  representation: diff_lnr
+  pooling: pooler
+  classifier_hidden_size: 256
+  classifier_dropout: 0.1
+  unfreeze_encoder_layers: [6, 11]
+
+training:
+  seed: 42
+  epochs: 1
+  learning_rate: 5.0e-5
+  weight_decay: 0.05
+  train_fraction: 0.5
+  validation_fraction: 0.25
+  test_fraction: 0.25
+  batch_size_by_max_deletion:
+    50: 2
+  evaluation_batch_size: 2
+  num_workers: 0
+  pin_memory: false
+  early_stopping_patience: 1
+  early_stopping_min_delta: 0.001
+  save_checkpoint: true
+
+runtime:
+  device: cpu
+  deterministic: true
+  tokenizer_parallelism: false
+
+output:
+  root: ../runs
+  run_name: smoke
+  save_predictions: true

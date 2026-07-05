@@ -1,0 +1,9 @@
+CHROM	POS	REF	ALT	labels	context_sequence	var_position
+1	101	ATG	A	Pathogenic	CCCATTT	3
+1	201	CT	C	Benign	AAACGG	3
+1	301	GAA	G	Pathogenic	TTTGCCC	3
+1	401	TCC	T	Benign	GGGTAAC	3
+2	501	AG	A	Pathogenic	CCCATTT	3
+2	601	CA	C	Benign	TTTCGGG	3
+2	701	GTT	G	Pathogenic	AAAGCCC	3
+2	801	TAA	T	Benign	CCCTGGG	3
